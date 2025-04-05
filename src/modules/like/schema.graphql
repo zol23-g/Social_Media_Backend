@@ -12,4 +12,6 @@ type Query {
 
 type Mutation {
   toggleLike(postId: ID!): Boolean!
+  likePost(postId: ID!): Boolean!
+  unlikePost(postId: ID!): Boolean!
 }

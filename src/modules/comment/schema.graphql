@@ -15,4 +15,6 @@ type Query {
 
 type Mutation {
   addComment(postId: ID!, content: String!, parentId: ID): Comment!
+  deleteComment(id: ID!): Boolean! 
+  updateComment(id: ID!, content: String!): Comment!
 }

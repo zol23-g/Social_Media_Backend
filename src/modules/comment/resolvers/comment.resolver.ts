@@ -1,22 +1,27 @@
 // --- src/modules/comment/resolvers/comment.resolver.ts ---
-import { getPostComments, addCommentToPost } from '../services/comment.service';
+import {
+  getPostComments,
+  addCommentToPost,
+  updateComment,
+  deleteComment,
+} from '../services/comment.service';
 
 export default {
   Query: {
-    comments: async (_: any, args: any, ctx: any) => {
-      return ctx.prisma.comment.findMany({ where: { postId: Number(args.postId) } });
-    }
+    comments: async (_: any, args: any) => getPostComments(Number(args.postId)),
   },
   Mutation: {
     addComment: async (_: any, args: any, ctx: any) => {
-      return ctx.prisma.comment.create({
-        data: {
-          content: args.content,
-          postId: Number(args.postId),
-          parentId: args.parentId ? Number(args.parentId) : null,
-          userId: ctx.userId,
-        },
-      });
-    }
-  }
+      if (!ctx.userId) throw new Error('Not authenticated');
+      return addCommentToPost(Number(args.postId), args.content, ctx.userId, args.parentId);
+    },
+    updateComment: async (_: any, args: any, ctx: any) => {
+      if (!ctx.user) throw new Error('Not authenticated');
+      return updateComment(Number(args.id), args.content, ctx);
+    },
+    deleteComment: async (_: any, args: any, ctx: any) => {
+      if (!ctx.user) throw new Error('Not authenticated');
+      return deleteComment(Number(args.id), ctx);
+    },
+  },
 };

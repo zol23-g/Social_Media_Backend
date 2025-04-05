@@ -13,4 +13,5 @@ type Query {
 
 type Mutation {
   ratePost(postId: ID!, value: Int!): Rating!
+  deleteRating(postId: ID!): Boolean!
 }

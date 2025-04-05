@@ -23,3 +23,17 @@ export const getMyRating = async (postId: number, userId: number): Promise<numbe
   });
   return rating?.value ?? null;
 };
+
+export const deleteRating = async (postId: number, userId: number) => {
+  const rating = await prisma.rating.findUnique({
+    where: { userId_postId: { userId, postId } }
+  });
+
+  if (!rating) throw new Error('Rating not found');
+
+  await prisma.rating.delete({
+    where: { userId_postId: { userId, postId } }
+  });
+
+  return true;
+};
