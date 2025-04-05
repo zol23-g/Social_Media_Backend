@@ -1,7 +1,5 @@
 
 ---
-
-```markdown
 # 📸 Social Media Backend API
 
 A full-featured social media backend API built with:
@@ -83,6 +81,4 @@ Visit [http://localhost:4000](http://localhost:4000) to explore the GraphQL Play
 ---
 
 Made with ❤️ by [Zelalem](https://github.com/zol23-g)
-```
 
----
